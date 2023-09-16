@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunnyTPS</title>
+    <link rel="stylesheet" href="https://sunny420x.com/css/sunnyux.css">
+    <link rel="stylesheet" href="/css/config.css">
+    <script src="https://sunny420x.com/js/sunnyux.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        table {
+            overflow: auto;
+        }
+    </style>
+</head>
+<body class="grey">
+    <script src="/js/alert.js"></script>
+    <div class="container">
+        <div class="grid-1">
+            <!-- <div class="mt-20 h-100">
+                <div class="black card rounded" style="width: 350px; position: fixed;" id="menu">
+                    <h2 class="text-white w-max mx-auto pt-20">SunnyTPS</h2>
+                    <div class="overflow-auto">
+                        <ul class="list text-white">
+                            <li><a href="#stocks_contents" class="link">เพิ่มรายรับ/รายจ่าย Restock</a></li>
+                            <li><a href="#ordered_incomes_contents" class="link">รายรับ</a></li>
+                            <li><a href="#incomes_ordering_start" class="link">รายรับตามช่วงเวลา</a></li>
+                            <li><a href="#outcomes_contents" class="link">รายจ่าย</a></li>
+                            <li><a href="#outcomes_ordering_start" class="link">รายจ่ายตามช่วงเวลา</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+            <div class="container p-20">
+                <div id="stocks_contents"></div>
+                <br>
+                <div class="grid-7-5">
+                    <div class="card white rounded p-20">
+                        <input type="number" name="product_id" id="incomes_product_id" placeholder="หมายเลขสินค้า" required>
+                        <input type="number" name="amount" id="incomes_amount" placeholder="จำนวน (ชิ้น)" required>
+                        <input type="number" name="order_id" id="incomes_order_id" placeholder="หมายเลขคำสั่งซื้อ" required>
+                        <button class="btn lightred" id="get_current_order_id">ดึงข้อมูล Order ID ล่าสุด</button>
+                        <button class="btn darkblue" id="incomes_btn">เพิ่มรายรับ</button>
+                    </div>
+                    <div class="card white rounded p-20">
+                        <input type="text" name="title" id="outcomes_title" placeholder="หัวข้อ" required>
+                        <input type="number" name="amount" id="outcomes_amount" placeholder="จำนวน (บาท)" required>
+                        <button class="btn red" id="outcomes_btn">เพิ่มรายจ่าย</button>
+                    </div>
+                </div>
+                <br>
+                <div class="card white rounded p-20">
+                    <input type="number" name="amount" id="restocks_product_id" placeholder="หมายเลขสินค้า" required>
+                    <input type="number" name="amount" id="restocks_amounts" placeholder="จำนวน (ชิ้น)" required>
+                    <input type="number" name="amount" id="restocks_totals" placeholder="จำนวน (บาท)" required>
+                    <button class="btn lightred" id="restocks_btn">เพิ่มรายจ่าย + Restocks</button>
+                </div>
+                <div class="grid-1 mt-20">
+                    <div class="card white rounded p-30">
+                        หน้า: <input type="number" value="1" id="get_incomes_by_pages"><button id="get_incomes_by_pages_btn" class="btn green">ตกลง</button>
+                        <div id="incomes_contents"></div>
+                        <br>
+                        หน้า: <input type="number" value="1" id="get_incomes_order_by_pages"><button id="get_incomes_order_by_pages_btn" class="btn green">ตกลง</button>
+                        <div id="ordered_incomes_contents"></div>
+                        <br>
+                        <h1 class="bl-darkblue mt-5">คำนวนรายรับตามช่วงเวลา</h1>
+                        <p><b>Format:</b> ดด/วว/ปปปป (MM/DD/YYYY)</p>
+                        <div class="mb-20">
+                            เริ่ม: <input type="date" name="" id="incomes_ordering_start" required>
+                            ถึง: <input type="date" name="" id="incomes_ordering_end" required>
+                            <button class="btn darkblue my-10" id="incomes_ordering_btn">เลือก</button>
+                        </div>
+                        <div id="ordering_incomes_contents" class=""></div>
+                    </div>
+                    <div class="card white rounded p-30">
+                        หน้า: <input type="number" value="1" id="get_outcomes_by_pages"><button id="get_outcomes_by_pages_btn" class="btn green">ตกลง</button>
+                        <div id="outcomes_contents"></div>
+                        <br>
+                        <h1 class="bl-red mt-5">คำนวนรายจ่ายตามช่วงเวลา</h1>
+                        <p><b>Format:</b> ดด/วว/ปปปป (MM/DD/YYYY)</p>
+                        <div class="">
+                            เริ่ม: <input type="date" name="" id="outcomes_ordering_start" required>
+                            ถึง: <input type="date" name="" id="outcomes_ordering_end" required>
+                            <button class="btn darkblue m-10" id="outcomes_ordering_btn">เลือก</button>
+                        </div>
+                        <div id="ordering_outcomes__contents" class="white rounded m-20"></div>
+                    </div>
+                </div>
+                <br>
+                <div class="card white rounded p-30">
+                    <h1 class="bl-orange mt-5">คำนวนกำไร / ขาดทุน ตามช่วงเวลา</h1>
+                    <p><b>Format:</b> ดด/วว/ปปปป (MM/DD/YYYY)</p>
+                    <div class="">
+                        เริ่ม: <input type="date" name="" id="result_ordering_start" required>
+                        ถึง: <input type="date" name="" id="result_ordering_end" required>
+                        <button class="btn darkblue" id="result_ordering_btn">คำนวน</button>
+                    </div>
+                    <div id="result_ordering_contents" class="white rounded"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $("#incomes_contents").load(`/get/incomes/pages/1`)
+            $("#outcomes_contents").load(`/get/outcomes/pages/1`);
+            $("#ordered_incomes_contents").load('/get/incomes/orders/pages/1');
+            $("#stocks_contents").load(`/get/stocks`);
+            // var current_incomes_order_id = get_current_incomes_order_id()
+            // $("#incomes_order_id").val(current_incomes_order_id);
+
+            setInterval(function(){
+                // $("#incomes_contents").load(`/get/incomes/pages`)
+                // $("#ordered_incomes_contents").load('/get/incomes/orders');
+            }, 5000);
+
+            $("#incomes_btn").click(function() {
+                if($("#incomes_product_id").val().trim() != "" && $("#incomes_product_id").val().trim() != "") {
+                    addincomes($("#incomes_product_id").val(), $("#incomes_amount").val(), $("#incomes_order_id").val());
+                } else {
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'ขออภัย...',
+                    text: 'ข้อมูลไม่สามารถเว้นว่างได้!',
+                    })
+                }
+            });
+
+            $("#outcomes_btn").click(function() {
+                if($("#outcomes_title").val().trim() != "" && $("#outcomes_amount").val().trim() != "") {
+                    addoutcomes($("#outcomes_title").val(), $("#outcomes_amount").val());
+                } else {
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'ขออภัย...',
+                    text: 'ข้อมูลไม่สามารถเว้นว่างได้!',
+                    })
+                }
+            });
+
+            $("#restocks_btn").click(function() {
+                if($("#restocks_product_id").val().trim() != "" && $("#restocks_amounts").val().trim() != "" && $("#restocks_totals").val().trim() != "") {
+                    restocks($("#restocks_product_id").val(), $("#restocks_amounts").val(), $("#restocks_totals").val());
+                } else {
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'ขออภัย...',
+                    text: 'ข้อมูลไม่สามารถเว้นว่างได้!',
+                    })
+                }
+            });
+
+            $("#incomes_ordering_btn").click(function() {
+                var url = `/get/incomes/ordering/${$("#incomes_ordering_start").val()}/${$("#incomes_ordering_end").val()}`
+                $("#ordering_incomes_contents").load(url);
+            })
+
+            $("#outcomes_ordering_btn").click(function() {
+                var url = `/get/outcomes/ordering/${$("#outcomes_ordering_start").val()}/${$("#outcomes_ordering_end").val()}`
+                $("#ordering_outcomes__contents").load(url);
+            })
+
+            $("#result_ordering_btn").click(function() {
+                var url = `/get/result/ordering/${$("#result_ordering_start").val()}/${$("#result_ordering_end").val()}`
+                $("#result_ordering_contents").load(url);
+            })
+
+            $("#get_incomes_by_pages_btn").click(function() {
+                var pages_number = $("#get_incomes_by_pages").val()
+                if(pages_number > 0) {
+                    var url = `/get/incomes/pages/${pages_number}`
+                    $("#incomes_contents").load(url);
+                }
+            })
+
+            $("#get_outcomes_by_pages_btn").click(function() {
+                var pages_number = $("#get_outcomes_by_pages").val()
+                if(pages_number > 0) {
+                    var url = `/get/outcomes/pages/${pages_number}`
+                    $("#outcomes_contents").load(url);
+                }
+            })
+
+            $("#get_incomes_order_by_pages_btn").click(function() {
+                var pages_number = $("#get_incomes_order_by_pages").val()
+                if(pages_number > 0) {
+                    var url = `/get/incomes/orders/pages/${pages_number}`
+                    $("#ordered_incomes_contents").load(url);
+                }
+            })
+
+            $("#get_current_order_id").click(function() {
+                get_current_incomes_order_id()
+            })
+        })
+    </script>
+    <div class="footer dark mt-20">
+        <div class="container">
+            <h2>SunnyTPS - Transition Processing Systems on Node.js</h2>
+            <p>SunnyTPS is developed by <a href="https://sunny420x.com" class="text-white" target="_blank">sunny420x.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

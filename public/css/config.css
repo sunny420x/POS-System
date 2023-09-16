@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+
+
+:root {
+    --container-max-width: 1300px;
+    --nav-height: 50px;
+    --nav-text-color: var(--grey);
+    --nav-text-color-hover: var(--white);
+    --nav-bg: var(--dark-transparent);
+    --nav-hover-bottom: var(--darkblue);
+}
+
+* {
+    font-family: 'Prompt';
+}
+
+.sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+@media only screen and (max-width: 1200px) {
+    #menu {
+        position: relative !important;
+    }
+}

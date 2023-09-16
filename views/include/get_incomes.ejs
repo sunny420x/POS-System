@@ -1,0 +1,31 @@
+<table class="">
+    <tr>
+        <th colspan="8">รายรับ</th>
+    </tr>
+    <tr>
+        <th>หมายเลขสินค้า</th>
+        <th>ชื่อสินค้า</th>
+        <th>หมายเลขคำสั่งซื้อ</th>
+        <th>เวลา (dd/mm/yyyy)</th>
+        <th>จำนวน</th>
+        <th>ราคา</th>
+        <th>เท่ากับ (บาท)</th>
+        <th>เพิ่มโดย</th>
+    </tr>
+    <%
+    incomes.forEach((row) => {
+    %>
+    <tr>
+        <td><%=row.product_id%></td>
+        <td><%=row.product_name%></td>
+        <td><%=row.order_id%></td>
+        <td><%=row.time.toLocaleDateString()%> <%=row.time.toLocaleTimeString("en-US", { hour12: false }).replace(/AM|PM/,'')%></td>
+        <td><%=row.amounts.toLocaleString()%></td>
+        <td><%=row.product_price.toLocaleString()%></td>
+        <td><%=row.total.toLocaleString()%></td>
+        <td><%=row.username%></td>
+    </tr>
+    <%                
+    })
+    %>
+</table>

@@ -1,0 +1,60 @@
+<table class="card white rounded mt-20">
+    <tr>
+        <th>หมายเลขคำสั่งซื้อ</th>
+        <th>เวลา (dd/mm/yyyy)</th>
+        <th>ยอดซื้อสินค้ารวม (บาท)</th>
+    </tr>
+    <%
+    sumincomes = 0
+    incomes_orders.forEach((row) => {
+        sumincomes += parseInt(row.total)
+    %>
+    <tr>
+        <td><%=row.order_id%></td>
+        <td><%=row.time.toLocaleDateString()%> <%=row.time.toLocaleTimeString("en-US", { hour12: false }).replace(/AM|PM/,'')%></td>
+        <td><%=row.total%></td>
+    </tr>
+    <%                
+    })
+    %>
+    <h3>รวมรายรับเป็นเงินเท่ากับ: <%=sumincomes.toLocaleString()%> บาท</h3>
+</table>
+<table class="card white rounded mt-20">
+    <tr>
+        <th>#</th>
+        <th>รายการ</th>
+        <th>เวลา (dd/mm/yyyy)</th>
+        <th>จำนวน (บาท)</th>
+    </tr>
+    <%
+    sumoutcomes = 0
+    outcomes_orders.forEach((row) => {
+        sumoutcomes += parseInt(row.amounts)
+    %>
+    <tr>
+        <td><%=row.id%></td>
+        <td><%=row.title%></td>
+        <td><%=row.time.toLocaleDateString()%> <%=row.time.toLocaleTimeString("en-US", { hour12: false }).replace(/AM|PM/,'')%></td>
+        <td><%=row.amounts.toLocaleString()%></td>
+    </tr>
+    <%                
+    })
+    %>
+    <h3>รายจ่ายรวมเป็นเงินเท่ากับ: <%=sumoutcomes.toLocaleString()%> บาท</h3>
+</table>
+<br>
+<table>
+    <tr>
+        <th>รายรับ</th>
+        <th>รายจ่าย</th>
+        <th>ยอดคงเหลือ</th>
+    </tr>
+    <tr>
+        <td><%=sumincomes.toLocaleString()%></td>
+        <td><%=sumoutcomes.toLocaleString()%></td>
+        <%
+        result = parseInt(sumincomes) - parseInt(sumoutcomes)
+        %>
+        <td><%=result.toLocaleString()%> บาท</td>
+    </tr>
+</table>

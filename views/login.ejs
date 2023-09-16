@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ SunnyTPS</title>
+    <link rel="stylesheet" href="https://sunny420x.com/css/sunnyux.css">
+    <link rel="stylesheet" href="/css/config.css">
+    <script src="https://sunny420x.com/js/sunnyux.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="grey">
+    <script src="/js/alert.js"></script>
+    <div class="container card white rounded p-30" id="mainpage">
+        <h1 class="bl-orange mt-5">ยินดีต้อนรับสู่ SunnyTPS</h1>
+        <h3><i class="fa-solid fa-circle-info mr-10"></i>โปรดเข้าสู่ระบบโดยใช้ ชื่อผู้ใช้ (Username) และ รหัสผ่าน (Password)</h3>
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" id="" placeholder="Password" required><br>
+            <input type="checkbox" name="remember" value="1"> จดจำการเข้าสู่ระบบ<br>
+            <input type="submit" class="btn darkblue" value="เข้าสู่ระบบ">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<table class="mt-20">
+    <tr>
+        <th>#</th>
+        <th>รายการ</th>
+        <th>เวลา</th>
+        <th>จำนวน (บาท)</th>
+        <th>เพิ่มโดย</th>
+    </tr>
+    <%
+    sumtotal = 0
+    orders.forEach((row) => {
+        sumtotal += parseInt(row.amounts)
+    %>
+    <tr>
+        <td><%=row.id%></td>
+        <td><%=row.title%></td>
+        <td><%=row.time.toLocaleDateString()%> <%=row.time.toLocaleTimeString("en-US", { hour12: false }).replace(/AM|PM/,'')%></td>
+        <td><%=row.amounts.toLocaleString()%></td>
+        <td><%=row.username%></td>
+    </tr>
+    <%                
+    })
+    %>
+    <h3>รวมเป็นเงินเท่ากับ: <%=sumtotal.toLocaleString()%> บาท</h3>
+</table>

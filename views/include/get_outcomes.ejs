@@ -1,0 +1,25 @@
+<table class="">
+    <tr>
+        <th colspan="5">รายจ่าย</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>เวลา (dd/mm/yyyy)</th>
+        <th>หัวข้อ</th>
+        <th>ราคา</th>
+        <th>เพิ่มโดย</th>
+    </tr>
+    <%
+    outcomes.forEach((row) => {
+    %>
+    <tr>
+        <td><%=row.id%></td>
+        <td><%=row.time.toLocaleDateString()%> <%=row.time.toLocaleTimeString("en-US", { hour12: false }).replace(/AM|PM/,'')%></td>
+        <td><%=row.title%></td>
+        <td><%=row.amounts.toLocaleString()%></td>
+        <td><%=row.username%></td>
+    </tr>
+    <%                
+    })
+    %>
+</table>
